@@ -24,7 +24,10 @@ contract StarNotary is ERC721 {
 
     // Create Star using the Struct
     function createStar(string memory _name, uint256 _tokenId, string memory _tokenSymbol) public { // Passing the name and tokenId as a parameters
-        Star memory newStar = Star(_name,_tokenSymbol); // Star is a struct so we are creating a new Star
+        //Star memory newStar = Star(_name,_tokenSymbol); // Star is a struct so we are creating a new Star
+        Star memory newStar;
+        newStar.name = _name;
+        newStar.tokenSymbol = _tokenSymbol;
         tokenIdToStarInfo[_tokenId] = newStar; // Creating in memory the Star -> tokenId mapping
         _mint(msg.sender, _tokenId); // _mint assign the the star with _tokenId to the sender address (ownership)
     }
