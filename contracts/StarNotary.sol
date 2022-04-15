@@ -93,7 +93,6 @@ contract StarNotary is ERC721 {
 
         _transferFrom(to, tokenIdOfStarToXfr);
 
-        return true;
     }
 
     // Implement Task 1 Transfer Stars
@@ -101,16 +100,8 @@ contract StarNotary is ERC721 {
         //1. Check if the sender is the ownerOf(_tokenId)
         require (msg.sender == (ownerOf(_tokenId)), "_transferfrom: The person making the request does not own the Star and so cannot transfer it");
         //2. Use the transferFrom(from, to, tokenId); function to transfer the Star
-        Star memory starToXfr = tokenIdToStarInfo[_tokenId];
-
-        // Remove the Star from the person sending the Star
-        tokenIdToStarInfo[msg.sender] = "";
-
-        // Add the Star to the person receiving the Star
-        tokenIdToStarInfo[_to1] = starToXfr;
-
         // Send the Star to the new address from the sender
-        transferFrom(msg.sender, _to1, starToXfr);
+        transferFrom(msg.sender, _to1, _tokenId);
     }
 
     // Implement Task 1 Transfer Stars
@@ -120,16 +111,7 @@ contract StarNotary is ERC721 {
             revert ("transferStar: The person making the request does not own the Star and so cannot transfer it");
         }
         //2. Use the transferFrom(from, to, tokenId); function to transfer the Star
-        Star memory starToXfr = tokenIdToStarInfo[_tokenId];
-
-        // Remove the Star from the person sending the Star
-        tokenIdToStarInfo[msg.sender] = "";
-
-        // Add the Star to the person receiving the Star
-        tokenIdToStarInfo[_to1] = starToXfr;
-
-        // Send the Star to the new address from the sender
-        transferFrom(msg.sender, _to1, starToXfr);
+        transferFrom(msg.sender, _to1, _tokenId);
     }
 
 }
