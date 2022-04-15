@@ -22,8 +22,6 @@ contract StarNotary is ERC721 {
     // mapping the TokenId and price
     mapping(uint256 => uint256) public starsForSale;
 
-    event Transfer(address indexed from, address indexed to, Star starToXfr);
-
     // Create Star using the Struct
     function createStar(string memory _name, uint256 _tokenId, string memory _tokenSymbol) public { // Passing the name and tokenId as a parameters
         Star memory newStar = Star(_name,_tokenSymbol); // Star is a struct so we are creating a new Star
@@ -62,7 +60,8 @@ contract StarNotary is ERC721 {
     function lookUptokenIdToStarInfo (uint _tokenId) public view returns (string memory) {
         //1. You should return the Star saved in tokenIdToStarInfo mapping
         Star memory newStar = tokenIdToStarInfo[_tokenId];
-        return newStar;
+        // return newStar;
+        return string(abi.encodePacked(newStar.name, " ", newStar.tokenSymbol));
     }
 
     // Implement Task 1 Exchange Stars function
