@@ -46,7 +46,7 @@ contract StarNotary is ERC721 {
 
     function buyStar(uint256 _tokenId) public  payable {
         //console.log("buyStar: tokenId to buy ", _tokenId, " starsForSale[_tokenId] ", starsForSale[_tokenId]);
-        require(starsForSale[_tokenId] > 0, "The Star should be up for sale");
+        require(starsForSale[_tokenId] > 0, "The star should be up for sale");
         uint256 starCost = starsForSale[_tokenId];
         address ownerAddress = ownerOf(_tokenId);
         //console.log("buyStar: owner ", ownerAddress, " owner ETH ", msg.value, " starCost ", starCost);
@@ -69,33 +69,31 @@ contract StarNotary is ERC721 {
 
     // Implement Task 1 Exchange Stars function
     function exchangeStars(uint256 _tokenId1, uint256 _tokenId2) public {
-        //1. Passing to star tokenId you will need to check if the owner of _tokenId1 or _tokenId2 is the sender
+
         address from;
         address to;
-        uint tokenIdOfStarToXfr;
+        uint256 tokenIdOfStarToXfr1;
 
+        //1. Passing to star tokenId you will need to check if the owner of _tokenId1 or _tokenId2 is the sender
         if (msg.sender == (ownerOf(_tokenId1))) {
             from = ownerOf(_tokenId1);
             to = ownerOf(_tokenId2);
-            tokenIdOfStarToXfr = _tokenId2;
+            tokenIdOfStarToXfr1 = _tokenId1;
         }
-        else {
-           if (msg.sender == (ownerOf(_tokenId2))) {
+        else if (msg.sender == (ownerOf(_tokenId2))) {
                 from = ownerOf(_tokenId2);
                 to = ownerOf(_tokenId1);
-                tokenIdOfStarToXfr = _tokenId1;
+                tokenIdOfStarToXfr1 = _tokenId2;
             }
-            else {
-                revert ("exchangeStars: The person making the request does not own the Star and so cannot transfer it");
-            }
+        else {
+            revert ("exchangeStars: The person making the request does not own the Star and so cannot transfer it");
         }
 
         //2. You don't have to check for the price of the token (star)
         //3. Get the owner of the two tokens (ownerOf(_tokenId1), ownerOf(_tokenId2)
         //4. Use _transferFrom function to exchange the tokens.
 
-        _transferFrom(to, tokenIdOfStarToXfr);
-
+        _transferFrom(to, tokenIdOfStarToXfr1); 
     }
 
     // Implement Task 1 Transfer Stars
