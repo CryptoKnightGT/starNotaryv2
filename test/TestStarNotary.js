@@ -52,14 +52,19 @@ it('lets user1 get the funds after the sale', async() => {
 
     let balanceOfUser1AfterTransaction = await web3.eth.getBalance(user1);
     let balanceOfUser2AfterTransaction = await web3.eth.getBalance(user2);
-    let value1 = Number(balanceOfUser1AfterTransaction) + Number(starPrice);
 
     console.log("balanceOfUser1BeforeTransaction ", Number(balanceOfUser1BeforeTransaction));
     console.log("balanceOfUser1AfterTransaction ", Number(balanceOfUser1AfterTransaction));
     console.log("balanceOfUser2BeforeTransaction ", Number(balanceOfUser2BeforeTransaction));
     console.log("balanceOfUser2AfterTransaction ", Number(balanceOfUser2AfterTransaction));
+    // User one should have more money after the tx
     assert.isAbove(Number(balanceOfUser1AfterTransaction), Number(balanceOfUser1BeforeTransaction));
-    //assert.isBelow(Number(balanceOfUser2AfterTransaction), Number(balanceOfUser2BeforeTransaction));
+    // User two should have less money after the tx
+    assert.isBelow(Number(balanceOfUser2AfterTransaction), Number(balanceOfUser2BeforeTransaction));
+    // user1 balance after the transaction should be its prior value plus the price sold for
+    /* let value1 = Number(balanceOfUser1BeforeTransaction) + Number(starPrice);
+    let value2 = Number(balanceOfUser1AfterTransaction);
+    assert.equal(value1, value2); */
 });
 
 it('lets user2 buy a star, if it is put up for sale', async() => {
@@ -111,6 +116,9 @@ it('lets 2 users exchange stars', async() => {
     let user1 = accounts[1];
     let user2 = accounts[2];
 
+    console.log("User1 ", user1);
+    console.log("User2 ", user2);
+
     // create 2 stars and assign one to each user
     let tokenId8 = 8;
     let tokenId9 = 9;
@@ -118,23 +126,28 @@ it('lets 2 users exchange stars', async() => {
     // create star8 for user1
     await instance.createStar('Awesome Star8', tokenId8, "AWS8", {from: user1});
     assert.equal(await instance.ownerOf.call(tokenId8), user1);
-    // create star9 for user2
-    await instance.createStar('Awesome Star9', tokenId9, "AWS9", {from: user2});
     // check star8 added to mappings
     let starData8 = (await instance.tokenIdToStarInfo.call(tokenId8));
     assert.equal(starData8.name, 'Awesome Star8');
+    // create star9 for user2
+    await instance.createStar('Awesome Star9', tokenId9, "AWS9", {from: user2});
     // check star9 added to mappings
     let starData9 = (await instance.tokenIdToStarInfo.call(tokenId9));
     assert.equal(starData9.name, 'Awesome Star9');
+
+    let ownerOfTkn8 = (await instance.ownerOf.call(tokenId8));
+    let ownerOfTkn9 = (await instance.ownerOf.call(tokenId9));    
+    console.log("Before: ownerOfTkn8 ", ownerOfTkn8);
+    console.log("Before: ownerOfTkn9 ", ownerOfTkn9);
 
     // now swap them so user1 has star9 and user2 has star8
     await instance.exchangeStars(tokenId8, tokenId9, {from: user1});
     // check that user2 has Star8
 
-    let owner1 = (await instance.ownerOf.call(tokenId9));    
-    let owner2 = (await instance.ownerOf.call(tokenId8));
-    console.log("After: owner1 ", owner1, " user1 ", user1);
-    console.log("After: owner2 ", owner2, " user2 ", user2);
+    let ownerOfTkn8A = (await instance.ownerOf.call(tokenId8));
+    let ownerOfTkn9A = (await instance.ownerOf.call(tokenId9));    
+    console.log("After: ownerOfTkn8 ", ownerOfTkn8A);
+    console.log("After: ownerOfTkn9 ", ownerOfTkn9A);
     assert.equal(await instance.ownerOf.call(tokenId8), user2);
     // check that user1 has Star9
     assert.equal(await instance.ownerOf.call(tokenId9), user1);
