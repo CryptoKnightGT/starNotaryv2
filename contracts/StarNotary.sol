@@ -73,17 +73,21 @@ contract StarNotary is ERC721 {
         address from;
         address to;
         uint256 tokenIdOfStarToXfr1;
+        uint256 tokenIdOfStarToXfr2;
+      
 
         //1. Passing to star tokenId you will need to check if the owner of _tokenId1 or _tokenId2 is the sender
         if (msg.sender == (ownerOf(_tokenId1))) {
             from = ownerOf(_tokenId1);
             to = ownerOf(_tokenId2);
             tokenIdOfStarToXfr1 = _tokenId1;
+            tokenIdOfStarToXfr2 = _tokenId2;
         }
         else if (msg.sender == (ownerOf(_tokenId2))) {
                 from = ownerOf(_tokenId2);
                 to = ownerOf(_tokenId1);
                 tokenIdOfStarToXfr1 = _tokenId2;
+                tokenIdOfStarToXfr2 = _tokenId1;
             }
         else {
             revert ("exchangeStars: The person making the request does not own the Star and so cannot transfer it");
@@ -93,16 +97,10 @@ contract StarNotary is ERC721 {
         //3. Get the owner of the two tokens (ownerOf(_tokenId1), ownerOf(_tokenId2)
         //4. Use _transferFrom function to exchange the tokens.
 
-        _transferFrom(to, tokenIdOfStarToXfr1); 
-    }
-
-    // Implement Task 1 Transfer Stars
-    function _transferFrom(address _to1, uint256 _tokenId) private {
-        //1. Check if the sender is the ownerOf(_tokenId)
-        require (msg.sender == (ownerOf(_tokenId)), "_transferfrom: The person making the request does not own the Star and so cannot transfer it");
-        //2. Use the transferFrom(from, to, tokenId); function to transfer the Star
-        // Send the Star to the new address from the sender
-        transferFrom(msg.sender, _to1, _tokenId);
+        transferFrom(msg.sender, to, tokenIdOfStarToXfr1); // we know that the first one came form the msg.sender
+        // we need to give the msg.sender the right to transfer the token of the other user
+        approve(msg.sender, tokenIdOfStarToXfr2);
+        transferFrom(to, from, tokenIdOfStarToXfr2);
     }
 
     // Implement Task 1 Transfer Stars
