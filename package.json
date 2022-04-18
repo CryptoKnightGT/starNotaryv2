@@ -1,9 +1,31 @@
 {
   "dependencies": {
     "eslint": "^8.13.0",
-    "openzeppelin-solidity": "2.3"
+    "openzeppelin-solidity": "2.3",
+    "truffle-hdwallet-provider": "^1.0.17",
+    "web3": "^1.7.3"
   },
   "devDependencies": {
     "@openzeppelin/contracts": "^4.5.0"
-  }
+  },
+  "name": "starnotaryv2",
+  "description": "**PROJECT: Decentralized Star Notary Service Project** - For this project, you will create a DApp by adding functionality with your smart contract and deploy it on the public testnet.",
+  "version": "1.0.0",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CryptoKnightGT/starNotaryv2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CryptoKnightGT/starNotaryv2/issues"
+  },
+  "homepage": "https://github.com/CryptoKnightGT/starNotaryv2#readme"
 }
