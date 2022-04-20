@@ -2,6 +2,8 @@
   "dependencies": {
     "eslint": "^8.13.0",
     "openzeppelin-solidity": "2.3",
+    "solc": "^0.8.13",
+    "truffle": "^5.5.10",
     "truffle-hdwallet-provider": "^1.0.17",
     "web3": "^1.7.3"
   },

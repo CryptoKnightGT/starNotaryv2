@@ -4,6 +4,12 @@
 ### ToDo
 This Starter Code has already implemented the functionalities you implemented in the StarNotary (Version 2) exercise, and have comments in all the files you need to implement your tasks.
 
+### Data required for submission
+# truffle 5.5.6
+# openzeppelin-solidity 2.3
+# ERC721 Token Symbol URAN
+# Token name YV3
+# Token address https://rinkeby.etherscan.io/token/0x5799e15d337c4924bf4a40e670449d4419349a1d?a=0x2d343478ce30d11fa9f078b591a0c625f403f3c5
 
 
 ### Dependencies
