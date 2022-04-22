@@ -27,6 +27,7 @@
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
+// set values
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const infuraKey = process.env.InfuraDev;
 const mnemonic = process.env.WalletDev; // mnemonic of wallet
