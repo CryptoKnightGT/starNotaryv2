@@ -28,8 +28,8 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 const HDWalletProvider = require('truffle-hdwallet-provider');
-const infuraKey = "f012873984274ade96c472afb4992328";
-const mnemonic = "merit solution elite square diesel nut south blind destroy note unaware river"; // mnemonic of wallet
+const infuraKey = process.env.InfuraDev;
+const mnemonic = process.env.WalletDev; // mnemonic of wallet
 
 module.exports = {
   /**

@@ -76,6 +76,12 @@ contract StarNotary is ERC721 {
         require(msg.sender == owner1 || msg.sender == owner2, "exchangeStars: Sender must own one of the stars");
         _transferFrom(owner1, owner2, _tokenId1);
         _transferFrom(owner2, owner1, _tokenId2);
+        // Fedback from course review of improvements to check for:
+        
+        // If the _tokenId1 is owned by the msg.sender
+        // If the _tokenId2 is not owned by the msg.sender
+        // If the owner of _tokenId2 agrees with that deal
+
     }
 
     // Implement Task 1 Transfer Stars
