@@ -29,8 +29,9 @@
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 // set values
 const HDWalletProvider = require('truffle-hdwallet-provider');
-const infuraKey = process.env.InfuraDev;
-const mnemonic = process.env.WalletDev; // mnemonic of wallet
+require('dotenv').config(); // for reading in environment variables
+const INFURAKEY = process.env.INFURA_KEY;
+const MNEMONIC = process.env.WALLET_DEV; // mnemonic of wallet
 
 module.exports = {
   /**
@@ -59,8 +60,8 @@ module.exports = {
          // Useful for deploying to a public network.
      // NB: It's important to wrap the provider as a function.
      rinkeby: {
-      //provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${infuraKey}`),
-      provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/f012873984274ade96c472afb4992328`),
+      provider: () => new HDWalletProvider(WALLET_DEV, `https://rinkeby.infura.io/v3/${INFURAKEY}`),
+      //provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/f012873984274ade96c472afb4992328`),
       network_id: 4,       // rinkeby's id
         gas: 4500000,        // rinkeby has a lower block limit than mainnet
         gasPrice: 10000000000
